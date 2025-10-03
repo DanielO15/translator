@@ -2,6 +2,7 @@
     import { Input } from "$lib/components/ui/input/index.js";
     import { Button } from "flowbite-svelte";
     import { ForwardOutline } from "flowbite-svelte-icons";
+    import { translateText } from "$lib/api/translate.js" ;
 
     let text = $state("");
     let { handleTranslation } = $props();
