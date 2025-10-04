@@ -12,7 +12,7 @@ export async function POST({ request }) {
         },
         method: 'POST',
         body: JSON.stringify({
-          inputs: `Create a satirical LinkedIn post about: ${text}. Make it over-the-top with buzzwords and humble brags.`,
+          inputs: `Create a satirical LinkedIn post about: ${text}. Make it over-the-top with buzzwords and humble brags.`,hh
         }),
       }
     );
