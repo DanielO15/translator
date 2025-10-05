@@ -107,7 +107,20 @@
             <InputForm handleTranslation={handleTranslation} />
         </div>
     </div>
-    <div class="card"> <div class="card-border"></div> <div class="card-content"></div></div>
+   <div class="card">
+    <div class="card-border"></div>
+    <div class="card-content">
+        {#if translatedText}
+            <div style="padding: 20px; color: white; overflow-y: auto; height: 100%;">
+                {translatedText}
+            </div>
+        {:else}
+            <div style="padding: 20px; color: rgba(255,255,255,0.5); text-align: center;">
+                Your satirical LinkedIn post will appear here...
+            </div>
+        {/if}
+    </div>
+</div>
 
 </div>
 

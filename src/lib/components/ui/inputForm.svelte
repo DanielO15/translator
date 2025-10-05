@@ -12,12 +12,17 @@
 async function handleSubmit(event) {
     event.preventDefault();
     const result = await translateText(text);
-    handleTranslation(result)
+    if (result) {
+        handleTranslation(result);
+    } else {
+        console.error("Translation failed");
+        // Optionally show an error to the user
+    }
 }
 </script>
     
-<form class="w-full h-full" on:submit={handleSubmit}>
-   <Input  placeholder="Enter text here" class='w-full pl-10 pt-1 radius rounded-2xl bg-transparent  text-white border-transparent h-auto' bind:value={text} />
+<form class="w-full h-full " onsubmit={handleSubmit}>
+<Input placeholder="Enter text here" class="w-full pl-10 pt-1 rounded-2xl bg-transparent border-transparent h-auto text-gray-400 placeholder:text-gray-400" bind:value={text} />
 
     <Button type="submit" class="">
         <ForwardOutline class="shrink-0 h-6 w-6" />  Send
