@@ -3,9 +3,11 @@
     import { Button } from "$lib/components/ui/button/index.js";
     import { ClipboardOutline } from "flowbite-svelte-icons";
     import './home.css';
-
+    import Loading from "$lib/components/ui/loading.svelte";
     let cardsEl: HTMLElement | null = null;
     let translatedText = $state("");
+    let isLoading = $state(false);
+    let showToast = $state(false);
   
     function handleMouseMove(e: MouseEvent) {
       if (!cardsEl) return;
@@ -20,29 +22,44 @@
 
     function handleTranslation(result: string) {
         translatedText = result;
-
+        isLoading = false;
         console.log(result);
-}
+    }
+
+    function handleLoadingStart() {
+        isLoading = true;
+        translatedText = "";
+    }
 
 function handleCopy() {
     navigator.clipboard.writeText(translatedText);
+    showToast = true;
+    setTimeout(() => showToast = false, 2000);
 }
 </script>
 
-
+{#if showToast}
+    <div class="fixed bottom-4 right-4 bg-green-300 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in z-50">
+        ✓ Copied to clipboard!
+    </div>
+{/if}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div id="cards" bind:this={cardsEl} onmousemove={handleMouseMove}>
     <div class="card">
         <div class="card-border"> </div>
         <div class="card-content">
-            <InputForm handleTranslation={handleTranslation} />
+            <InputForm handleTranslation={handleTranslation} handleLoadingStart={handleLoadingStart} />
         </div>
     </div>
    <div class="card">
     <div class="card-border"></div>
     <div class="card-content flex flex-col justify-between items-start">
-        {#if translatedText}
+        {#if isLoading}
+            <div class="flex-1 flex items-center justify-center w-full">
+                <Loading />
+            </div>
+        {:else if translatedText}
             <div class="h-full overflow-y-auto w-full">
                 {translatedText}
             </div>
@@ -54,7 +71,8 @@ function handleCopy() {
             </div>
         {/if}
         <Button onclick={handleCopy} class="bg-transparent border-transparent hover:bg-gray-800/90 transition-colors self-start">
-            <ClipboardOutline class="h-6 w-6 text-gray-100 shrink-0"/>
+            <ClipboardOutline class="h-6 w-6 text-blue-400 shrink-0"/>
+            Copy
         </Button>
     </div>
 </div>
