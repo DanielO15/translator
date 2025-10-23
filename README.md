@@ -1,5 +1,7 @@
 # sv
 
+You can visit the project at: (https://translator-oq7xnby3a-danieloyewole15-4964s-projects.vercel.app/)
+
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
 ## Creating a project
